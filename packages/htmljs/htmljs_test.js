@@ -67,6 +67,17 @@ Tinytest.add("htmljs - construction", function (test) {
   test.throws(function () {
     HTML.CharRef({html: '&amp;'}); // no 'str'
   });
+
+  // Test of flattening style object
+  var attrs = {
+    styles: {
+      display: 'inline-block',
+      width: '100px',
+      height: '100px'
+    }
+  };
+  var a3 = new A(attrs);
+  test.equal(a.attrs, attrs);
 });
 
 Tinytest.add("htmljs - utils", function (test) {

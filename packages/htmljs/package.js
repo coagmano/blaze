@@ -7,6 +7,7 @@ Package.describe({
 
 Package.onUse(function (api) {
   api.use('tracker@1.1.0');
+  api.use('ecmascript');
 
   api.export('HTML');
 

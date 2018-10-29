@@ -58,6 +58,9 @@ HTML.Visitor.def({
       if (HTML.isArray(content))
         return this.visitArray.apply(this, arguments);
 
+      if (content.styles) {
+        console.log('style attr found');
+      }
       return this.visitObject.apply(this, arguments);
 
     } else if ((typeof content === 'string') ||
@@ -111,6 +114,9 @@ HTML.TransformingVisitor.def({
   visitCharRef: IDENTITY,
   visitRaw: IDENTITY,
   visitObject: IDENTITY,
+  visitStyles: function(tag/*, ... */) {
+    
+  },
   visitFunction: IDENTITY,
   visitTag: function (tag/*, ...*/) {
     var oldChildren = tag.children;
@@ -280,6 +286,11 @@ HTML.ToHTMLVisitor.def({
     if (attrs) {
       attrs = HTML.flattenAttributes(attrs);
       for (var k in attrs) {
+        if (k === 'styles') {
+          // var stlyObj = attrs[k];
+          console.log('style attr found');
+          delete attrs[k];
+        }
         if (k === 'value' && tagName === 'textarea') {
           children = [attrs[k], children];
         } else {
